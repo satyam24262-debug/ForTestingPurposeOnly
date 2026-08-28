@@ -22,7 +22,7 @@ app.get("/", async (req, res) => {
   console.log(Order);
 
   res.status(200).json({
-    message: "Lo main fir se a gya.",
+    message: "Lo main chala gya fir se.",
   });
 });
 
