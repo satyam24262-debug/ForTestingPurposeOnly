@@ -26,6 +26,7 @@ const CompanyRoute = require("./router/companyRoute");
 const jobRoute = require("./router/jobRoute");
 const applicationRoute = require("./router/applicationRoute");
 const AuthRouter = require("./router/authRoute");
+const Uploadrouter = require("./router/upload");
 
 // ?Test route
 app.get("/", (req, res, next) => {
@@ -40,6 +41,8 @@ app.use("/api", CompanyRoute);
 app.use("/api", jobRoute);
 app.use("/api", applicationRoute);
 app.use("/api", AuthRouter);
+
+app.use("/api", Uploadrouter);
 
 const startServer = async () => {
   await db();
