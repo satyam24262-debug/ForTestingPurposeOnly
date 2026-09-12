@@ -16,7 +16,17 @@ const allowedOrigins = [
 
 const corsObj = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    const isAllowed =
+      allowedOrigins.includes(origin) ||
+      /^https:\/\/for-testing-purpose-only-[a-z0-9]+-satyam24262-debugs-projects\.vercel\.app$/.test(
+        origin,
+      );
+
+    if (isAllowed) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
