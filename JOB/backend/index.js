@@ -13,7 +13,7 @@ const corsObj = {
 };
 
 // ? Middlewares
-app.use(cors(corsObj));
+app.use(cors("*"));
 app.use(express.json()); //! Parses incoming JSON payloads
 app.use(express.urlencoded({ extended: true })); //!Parses URL-encoded data, commonly used with form submissions
 app.use(cookieParser());
