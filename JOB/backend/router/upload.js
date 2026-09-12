@@ -1,5 +1,5 @@
 const express = require("express");
-const upload = require("./middleware/upload");
+const upload = require("../middleware/upload");
 const cloudinary = require("cloudinary").v2;
 
 const Uploadrouter = express.Router();
