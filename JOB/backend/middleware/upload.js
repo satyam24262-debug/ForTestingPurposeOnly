@@ -1,6 +1,6 @@
 const multer = require("multer");
+const cloudinary = require("cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const cloudinary = require("cloudinary").v2;
 
 // Cloudinary config
 cloudinary.config({
@@ -9,12 +9,12 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// Storage setup (no local folder needed)
+// Storage setup
 const storage = new CloudinaryStorage({
-  cloudinary,
+  cloudinary: cloudinary,
   params: {
-    folder: "uploads", // Cloudinary folder name
-    allowed_formats: ["jpg", "png", "pdf"], // optional
+    folder: "uploads",
+    allowed_formats: ["jpg", "png", "pdf"],
   },
 });
 
