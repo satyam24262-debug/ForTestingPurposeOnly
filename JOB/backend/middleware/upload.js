@@ -7,14 +7,21 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const upload = multer({ dest: "tmp/" });
+// multer memory storage
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.post("/upload", upload.single("file"), async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "uploads",
-    });
-    res.json({ url: result.secure_url });
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "uploads" },
+      (error, result) => {
+        if (error) return res.status(500).json({ error: error.message });
+        res.json({ url: result.secure_url });
+      },
+    );
+
+    // pipe buffer to Cloudinary
+    stream.end(req.file.buffer);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
