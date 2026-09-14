@@ -20,6 +20,7 @@ import Dashboard from "./components/Dashboard";
 import { api } from "./api/api";
 import { setUser } from "./redux/authSlice";
 import ProjectAssistant from "./components/ProjectAssistant";
+import { Analytics } from "@vercel/analytics/react";
 
 function ProtectedRoute({ roles, children }) {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter basename="/">
         <ProjectAssistant />
+        <Analytics />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
