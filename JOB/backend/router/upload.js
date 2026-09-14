@@ -4,7 +4,7 @@ const cloudinary = require("cloudinary").v2;
 
 const Uploadrouter = express.Router();
 
-Uploadrouter.post("/upload", upload.single("file"), (req, res) => {
+Uploadrouter.post("/upload", upload.single("fileName"), (req, res) => {
   try {
     const stream = cloudinary.uploader.upload_stream(
       { folder: "uploads" },
