@@ -105,8 +105,8 @@ exports.login = async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         maxAge: 1 * 24 * 60 * 60 * 1000,
-        sameSite: "strict",
-        secure: false,
+        sameSite: "none",
+        secure: true,
         path: "/",
       })
       .json({
@@ -128,8 +128,8 @@ exports.logout = async (req, res) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
-      sameSite: "strict",
-      // secure: true,
+      sameSite: "none",
+      secure: true,
       path: "/",
     });
 
