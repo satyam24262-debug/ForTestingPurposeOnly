@@ -14,7 +14,11 @@ export default function ImageAvatars() {
 
   return (
     <Stack direction="row" spacing={2}>
-      <Avatar alt={user?.fullName || "User profile"}>{initials}</Avatar>
+      {/* <Avatar alt={user?.fullName || "User profile"}>{initials}</Avatar> */}
+
+      <Avatar alt={user?.fullName || "User profile"} src={user?.profile?.photo}>
+        {!user?.profile?.photo && initials}
+      </Avatar>
     </Stack>
   );
 }
