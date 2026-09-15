@@ -34,7 +34,9 @@ export default function Cards({ job }) {
           <span className="text-slate-500"> positions</span>
         </div>
         <span className="text-sm font-bold text-emerald-600">
-          ₹{job.salary}
+          {job.salary
+            ? `${(job.salary / 100000).toFixed(2)} LPA`
+            : "Salary not specified"}
         </span>
       </div>
       {job.isPreview ? (
