@@ -102,7 +102,7 @@ export default function Card({ job }) {
         </span>
         <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
           {selectedJob.salary
-            ? `₹${selectedJob.salary}`
+            ? `${(selectedJob.salary / 100000).toFixed(2)} LPA`
             : "Salary not specified"}
         </span>
       </div>
