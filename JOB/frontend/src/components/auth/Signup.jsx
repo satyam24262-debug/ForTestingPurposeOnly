@@ -169,7 +169,7 @@ export default function Signup() {
                 type="file"
                 name="filename"
                 onChange={handleFileData}
-                className="ml-4 border p-1 pl-2 rounded-xl"
+                className="ml-4 min-w-0.5 border p-1 pl-2 rounded-xl"
               />
             </div>
             {loading ? (
