@@ -26,6 +26,8 @@ app.get("/", async (req, res) => {
   });
 });
 
+console.log("hello branch of github.com");
+
 app.listen(4000, () => {
   console.log(`server is running at http://localhost:4000`);
 });
