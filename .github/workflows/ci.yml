@@ -1,0 +1,34 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install frontend deps
+        run: cd JOB/frontend && npm install
+      - name: Build frontend
+        run: cd JOB/frontend && npm run build
+      - name: Test frontend
+        run: cd JOB/frontend && npm test
+
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install backend deps
+        run: cd JOB/backend && npm install
+      - name: Test backend
+        run: cd JOB/backend && npm test
