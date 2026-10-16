@@ -2,12 +2,19 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
 const isAuthenticated = async (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.status(401).json({ message: "User not authorized" });
-  }
   try {
+    const token = req.cookies.token;
+    console.log(token);
+    if (!token) {
+      return res.status(401).json({ message: "User not authorized" });
+    }
+
     const decode = jwt.verify(token, process.env.SECRET_KEY);
+
+    if (!decode) {
+      throw new Error("Invalid Token");
+    }
+
     const user = await userModel.findById(decode.userId).select("-password");
 
     if (!user) {
@@ -23,7 +30,9 @@ const isAuthenticated = async (req, res, next) => {
 };
 
 const requireRole =
-  (...roles) =>
+  (
+    ...roles //! rest operator for creating a array for the giving arguments
+  ) =>
   (req, res, next) => {
     if (!req.user || !roles.includes(req.user.role)) {
       return res
@@ -35,39 +44,3 @@ const requireRole =
 
 module.exports = isAuthenticated;
 module.exports.requireRole = requireRole;
-
-// const jwt = require("jsonwebtoken");
-
-// const isAuthenticated = async (req, res, next) => {
-//   try {
-//     const token = req.cookies.token;
-
-//     console.log(token);
-//     if (!token) {
-//       return res.status(401).json({
-//         message: "User is not Authorized",
-//         success: false,
-//       });
-//     }
-
-//     const decode = jwt.verify(token, process.env.SECRET_KEY);
-
-//     if (!decode) {
-//       return res.status(401).json({
-//         message: "Invalid token",
-//         success: false,
-//       });
-//     }
-
-//     req.id = decode.userId;
-//     next();
-//   } catch (err) {
-//     console.log("Error from Authentication", err);
-//     res.status(500).json({
-//       message: "Internal server Error",
-//       err,
-//     });
-//   }
-// };
-
-// module.exports = isAuthenticated;

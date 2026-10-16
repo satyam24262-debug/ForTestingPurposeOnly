@@ -36,7 +36,6 @@ const corsObj = {
 };
 
 app.use(cors(corsObj));
-
 app.use(express.json()); //! Parses incoming JSON payloads
 app.use(express.urlencoded({ extended: true })); //!Parses URL-encoded data, commonly used with form submissions
 app.use(cookieParser());
@@ -51,32 +50,40 @@ const applicationRoute = require("./router/applicationRoute");
 const AuthRouter = require("./router/authRoute");
 const Uploadrouter = require("./router/upload");
 
-// ?Test route
-app.get("/", (req, res, next) => {
-  console.log("Test is successfull");
-  res.status(200).json({
-    message: "I am backend, Your are going in the right path",
-  });
-});
-
 app.use("/api", UserRoute);
 app.use("/api", CompanyRoute);
 app.use("/api", jobRoute);
 app.use("/api", applicationRoute);
 app.use("/api", AuthRouter);
-
 app.use("/api", Uploadrouter);
 
-db().catch((error) => {
-  console.error("MongoDB connection failed:", error);
-});
+// db().catch((error) => {
+//   console.error("MongoDB connection failed:", error);
+// });
+// if (process.env.NODE_ENV !== "production") {
+//   const PORT = process.env.PORT || 4000;
+//   app.listen(PORT, () => {
+//     console.log(`Server is running at http://localhost:${PORT}`);
+//   });
+// }
+// db().catch((error) => {
+//   console.error("MongoDB connection failed:", error);
+// });
+// if (process.env.NODE_ENV !== "production") {
+//   const PORT = process.env.PORT || 4000;
+// }
 
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 4000;
+const Connection = async () => {
+  try {
+    const PORT = process.env.PORT || 4000;
+    await db();
+    app.listen(PORT, () => {
+      console.log(`Server is running at http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    throw new Error("Connection Error Occured");
+  }
+};
 
-  app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-  });
-}
-
+Connection();
 module.exports = app;
