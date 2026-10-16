@@ -274,7 +274,7 @@ exports.getRecommendedJobs = async (req, res) => {
 exports.getJobById = async (req, res) => {
   try {
     const jobId = req.params.id;
-
+    console.log(jobId);
     const job = await jobModel
       .findById({ _id: jobId })
       .populate("company", "name description website location logo");

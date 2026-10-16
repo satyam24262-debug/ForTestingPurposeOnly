@@ -15,6 +15,7 @@ const jobRouter = express.Router();
 
 jobRouter.post("/postJob", isAuthenticated, requireRole("Recruiter"), postJob);
 jobRouter.get("/getJobs", getAllJobs);
+
 jobRouter.post("/assistant", askAssistant);
 jobRouter.get(
   "/getRecommendedJobs",
@@ -22,7 +23,8 @@ jobRouter.get(
   requireRole("Student"),
   getRecommendedJobs,
 );
-jobRouter.get("/getJobById/:id", getJobById);
+
+jobRouter.get("/getJobById/:id", isAuthenticated, getJobById);
 jobRouter.get(
   "/getAdminJobs",
   isAuthenticated,
