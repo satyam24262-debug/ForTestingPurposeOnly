@@ -174,9 +174,13 @@ exports.logout = async (req, res) => {
 // ! Update Profile of user
 exports.updateProfile = async (req, res) => {
   try {
-    const { fullName, email, phone, profile = {} } = req.body;
+    // const { fullName, email, phone, profile = {} } = req.body;
+    const { fullName, email, phone } = req.body;
+    
 
-    const { bio = "", skills = [], photo = "" } = profile;
+    // const { bio = "", skills = [], photo = "" } = profile;
+    const { bio = "", skills = [] } = profile;
+    
 
     if (!fullName || !email || !phone || !Array.isArray(skills)) {
       return res.status(400).json({
@@ -204,7 +208,8 @@ exports.updateProfile = async (req, res) => {
 
     user.profile.bio = bio;
     user.profile.skills = skillsArray;
-    user.profile.photo = photo;
+    // user.profile.photo = photo;
+    
 
     await user.save();
 
