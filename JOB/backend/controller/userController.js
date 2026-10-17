@@ -175,7 +175,8 @@ exports.logout = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     // const { fullName, email, phone, profile = {} } = req.body;
-    const { fullName, email, phone } = req.body;
+    const { fullName, email, phone,profile } = req.body;
+    
     
 
     // const { bio = "", skills = [], photo = "" } = profile;
