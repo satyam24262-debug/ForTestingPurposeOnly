@@ -33,7 +33,7 @@ export const updateProfile = (data) => {
 };
 
 export const logout = (user) => {
-  return api.post("api/logout", user, { withCredentials: true });
+  return api.delete("api/logout", user, { withCredentials: true });
 };
 
 export const getJobs = (filters = {}) =>
